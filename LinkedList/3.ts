@@ -1,6 +1,6 @@
 class LinkedListNode {
     public value: number;
-    public next!: LinkedListNode|null;
+    public next: LinkedListNode|null = null;
 
     constructor(value: number) {
         this.value = value;
@@ -9,8 +9,8 @@ class LinkedListNode {
 }
 
 class LinkedList {
-    public head: LinkedListNode|null;
-    public tail: LinkedListNode|null;
+    public head: LinkedListNode|null = null;
+    public tail: LinkedListNode|null = null;
     public length: number = 0;
 
     constructor(value: number) {
@@ -28,35 +28,29 @@ class LinkedList {
       return this;
     }
 
-    pop(): number {
+    pop(): LinkedListNode|null {
+      if (!this.head || !this.tail) {
+        return null;
+      }
+
       let previousNode: LinkedListNode|null = this.head;
       let currentNode: LinkedListNode|null = this.head;
-      let poppedValue: number = 0;
 
-      if (!previousNode || !currentNode) {
-        return -1;
+      while (currentNode.next) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
       }
 
-      if (!currentNode.next) {
-        poppedValue = currentNode.value;
+      this.tail = previousNode;
+      this.tail.next = null;
+      this.length--;
+
+      if (this.length === 0) {
         this.head = null;
         this.tail = null;
-        this.length = 0;
-        return poppedValue;
       }
 
-      while (previousNode.next !== null) {
-        if (!currentNode.next) {
-          this.tail = previousNode;
-          this.tail.next = null;
-          this.length--;
-          poppedValue = currentNode.value;
-        } else {
-          previousNode = currentNode;
-          currentNode = currentNode.next;
-        }
-      }
-      return poppedValue;
+      return currentNode;
     }
 
     public print(): void {
@@ -115,7 +109,7 @@ function popValuesFromLinkedList(linkedList: LinkedList): void {
   const linkedListLengthPlusOne: number = linkedList.length + 1;
   for(let i: number = 1; i <= linkedListLengthPlusOne; i++) {
     console.log(linkedList);
-    console.log("Pop: " + linkedList.pop());
+    console.log(linkedList.pop());
   }
 }
 
