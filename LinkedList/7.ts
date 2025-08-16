@@ -120,6 +120,39 @@ class LinkedList {
       return true;
     }
 
+    public remove(index: number): LinkedListNode|null {
+      if (index < 0 || index >= this.length) {
+        return null;
+      }
+      if (index === this.length - 1) {
+        return this.pop();
+      }
+      if (index === 0) {
+        return this.shift();
+      }
+      const previous = this.get(index - 1);
+      const posterior = previous!.next;
+      previous!.next = posterior!.next;
+      posterior!.next = null;
+      this.length--;
+      return posterior;
+    }
+
+    public reverse(): LinkedList {
+      let temp = this.head;
+      this.head = this.tail;
+      this.tail = temp;
+      let next: LinkedListNode|null = temp!.next;
+      let prev: LinkedListNode|null = null;
+      for (let i: number = 0; 1 < this.length; i++) {
+        next = temp!.next;
+        temp!.next = prev;
+        prev = temp;
+        temp = next;
+      }
+      return this;
+    }
+
     public print(): void {
       let currentNode: LinkedListNode|null = this.head;
       let str: string = '';
