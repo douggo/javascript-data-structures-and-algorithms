@@ -144,7 +144,7 @@ class LinkedList {
       this.tail = temp;
       let next: LinkedListNode|null = temp!.next;
       let prev: LinkedListNode|null = null;
-      for (let i: number = 0; 1 < this.length; i++) {
+      for (let i: number = 0; i < this.length; i++) {
         next = temp!.next;
         temp!.next = prev;
         prev = temp;
