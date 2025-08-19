@@ -12,7 +12,7 @@ class LinkedList {
         this.tail = newNode;
         this.length = 1;
     }
-    
+
     push(value) {
         const newNode = new Node(value);
 
@@ -27,6 +27,26 @@ class LinkedList {
         }
         
         return this;
+    }
+
+    pop() {
+        if (!this.head || !this.tail) {
+            return;
+        }
+        let currentNode = this.head;
+        let previousNode = this.head;
+        while(currentNode.next) {
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+        }
+        this.tail = previousNode;
+        this.tail.next = null;
+        this.length--;
+        if (this.length === 0) {
+            this.head = null;
+            this.tail = null;
+        }
+        return currentNode;
     }
 }
 
