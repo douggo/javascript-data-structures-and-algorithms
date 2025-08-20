@@ -150,6 +150,9 @@ class LinkedList {
     }
 
     reverse() {
+        if (!this.head || !this.tail) {
+            return;
+        }
         let currentNode = this.head;
         this.head = this.tail;
         this.tail = currentNode;
