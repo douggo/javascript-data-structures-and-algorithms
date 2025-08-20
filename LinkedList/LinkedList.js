@@ -170,6 +170,19 @@ class LinkedList {
         return this;
     }
 
+    middleNode() {
+        if (!this.head || !this.tail) {
+            return;
+        }
+        let slow = this.head;
+        let fast = this.head;
+        while (fast !== null && fast.next !== null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
     print() {
         let currentNode = this.head;
         let string = '';
